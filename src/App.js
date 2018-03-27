@@ -94,6 +94,7 @@ class App extends Component {
         <div>
           <Graph statsArray={this.state.statsArray} />
         </div>
+        <h1> To see the code, visit: <a href="https://github.com/chriswfoster/mar26test"> this Github repository</a>. </h1>
       </div>
     )
   }
