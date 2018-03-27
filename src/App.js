@@ -10,7 +10,8 @@ constructor() {
   super();
   this.state = {
     inputText: "",
-    chosen: {}
+    chosen: {},
+    dataArray: []
   };
 }
 
@@ -19,13 +20,17 @@ handleTyping(val) {
 }
 
 getNewQuote(search){
+  let tehArray = []
   axios.get(`/api/search/${search.toUpperCase()}`)
   .then(response => {
-    for (var key in response.data["Time Series (1min)"]){
-      console.log(key)
-    }
+    
+    console.log(response.data)
   }
 )
+}
+
+getAverages(){
+
 }
 
 // getNewQuote(search) {
@@ -58,7 +63,7 @@ dateFormatter(date) {
 }
 
 render() {
-  // console.log(dataList);
+  console.log(this.state);
   const { chosen } = this.state;
   const displayData = chosen.Name ? (
     <div>
