@@ -20,7 +20,12 @@ handleTyping(val) {
 
 getNewQuote(search){
   axios.get(`/api/search/${search.toUpperCase()}`)
-  .then(response => console.log(response.data))
+  .then(response => {
+    for (var key in response.data["Time Series (1min)"]){
+      console.log(key)
+    }
+  }
+)
 }
 
 // getNewQuote(search) {

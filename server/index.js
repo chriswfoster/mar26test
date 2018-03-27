@@ -11,7 +11,7 @@ const app = express()
 app.use(json())
 app.use(cors())
 
-app.get('/api/search', controller.search)
+app.get('/api/search/:id', controller.search)
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
