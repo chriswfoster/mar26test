@@ -1,10 +1,9 @@
 import React, { Component } from "react"
-import logo from "./logo.svg"
 import "./App.css"
 import axios from "axios"
 
-import Graph from './components/Graph'
-import Body from './components/Body'
+import Graph from "./components/Graph"
+import Body from "./components/Body"
 
 // const dataList = require('./Data.js').datas ////// Local data
 
@@ -13,10 +12,8 @@ class App extends Component {
     super()
     this.state = {
       inputText: "",
-      chosen: {},
       dataArray: [],
-      statsArray: [],
-      
+      statsArray: []
     }
     this.getNewQuote = this.getNewQuote.bind(this)
     this.getTrends = this.getTrends.bind(this)
@@ -39,7 +36,6 @@ class App extends Component {
 
   getTrends(search) {
     var placeHolder = []
-    console.log(search)
     axios.get(`/api/trends/${search.toUpperCase()}`).then(response => {
       for (var key in response.data["Monthly Time Series"]) {
         response.data["Monthly Time Series"][key].Date = key
@@ -67,10 +63,9 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
     const { dataArray } = this.state
     const displayData = dataArray.Name ? (
-      <Body dataArray = {dataArray}/>
+      <Body dataArray={dataArray} numberFormatter={this.numberFormatter} dateFormatter={this.dateFormatter} />
     ) : (
       <p> Type Your Search Below: </p>
     )
@@ -78,7 +73,6 @@ class App extends Component {
       <div className="flexAll">
         <div className="mainDiv">
           <h2>Requirements:</h2>
-
           <hr className="firstHr" />
 
           {displayData}
@@ -98,7 +92,7 @@ class App extends Component {
           </button>
         </div>
         <div>
-          <Graph statsArray={this.state.statsArray}/>
+          <Graph statsArray={this.state.statsArray} />
         </div>
       </div>
     )

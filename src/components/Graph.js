@@ -39,8 +39,7 @@ class component extends Component {
   }
 
   render() {
-    console.log(this.state)
-    const { data, statsArray } = this.props
+    const { statsArray } = this.props
     const { sortedArray } = this.state
     return (
       <div>
