@@ -12,6 +12,7 @@ app.use(json())
 app.use(cors())
 
 app.get('/api/search/:id', controller.search)
+app.get('/api/trends/:id', controller.trends)
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
