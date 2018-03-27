@@ -1,0 +1,89 @@
+.font {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 100;
+  color: rgb(78, 78, 78);
+}
+
+.mainDiv {
+  width: 370px;
+  overflow-x: hidden;
+  margin-left: 1vw;
+}
+.firstHr {
+  height: 3px;
+  background-color: grey;
+  border-style: none;
+}
+
+.positive {
+  color: green;
+}
+.negative {
+  color: red;
+}
+.listFlex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: stretch;
+  margin-top: -2vh;
+  margin-bottom: -2vh;
+}
+
+.words {
+  font-size: 0.75em;
+  color: grey;
+
+  margin-left: 1vw;
+}
+.numbs {
+  font-size: 1em;
+  margin-top: 2vh;
+  margin-bottom: 0vh;
+}
+.otherHr {
+  height: 1px;
+  background-color: grey;
+  border-style: none;
+  margin-left: 5px;
+  width: 100%;
+}
+.datePos{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	align-items: center;
+	align-content: stretch;
+}
+.buttonstyle {
+  width: 48%;
+  height: 6vh;
+  font-weight: 100;
+  border-radius: 0 5px 5px 0;
+  border-color: lightgrey;
+    border-width: 1px;
+  background: linear-gradient(white, #f1f1f1);
+}
+
+.buttonstyle:focus {
+outline: 0;
+}
+
+input {
+height: 5vh;
+  margin-right: 1vw;
+  border-radius: 5px 0 0 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: lightgrey;
+}
+input:focus {
+outline: 0;
+}
+.spaceThingsOut {
+  height: 50vh;
+  
+}
