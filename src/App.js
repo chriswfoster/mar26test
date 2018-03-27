@@ -4,6 +4,7 @@ import "./App.css"
 import axios from "axios"
 
 import Graph from './components/Graph'
+import Body from './components/Body'
 
 // const dataList = require('./Data.js').datas ////// Local data
 
@@ -15,19 +16,12 @@ class App extends Component {
       chosen: {},
       dataArray: [],
       statsArray: [],
-      data: [
-        { x: 0, y: 8 },
-        { x: 1, y: 5 },
-        { x: 2, y: 4 },
-        { x: 3, y: 9 },
-        { x: 4, y: 1 },
-        { x: 5, y: 7 },
-        { x: 6, y: 6 },
-        { x: 7, y: 3 },
-        { x: 8, y: 2 },
-        { x: 9, y: 0 }
-      ]
+      
     }
+    this.getNewQuote = this.getNewQuote.bind(this)
+    this.getTrends = this.getTrends.bind(this)
+    this.numberFormatter = this.numberFormatter.bind(this)
+    this.dateFormatter = this.dateFormatter.bind(this)
   }
 
   handleTyping(val) {
@@ -55,20 +49,6 @@ class App extends Component {
     })
   }
 
-  
-
-  // getNewQuote(search) {
-  //   dataList[search.toUpperCase()]
-  //     ? this.statusChecker(search)
-  //     : alert("Please try a different search parameter.");
-  // }
-
-  // statusChecker(search) {
-  //   dataList[search.toUpperCase()].Status === "SUCCESS"
-  //     ? this.setState({ chosen: dataList[search.toUpperCase()] })
-  //     : alert(dataList[search.toUpperCase()].Message);
-  // }
-
   numberFormatter(num) {
     if (num > 999999999) {
       return (num / 1000000000).toFixed(1) + "B"
@@ -90,47 +70,7 @@ class App extends Component {
     console.log(this.state)
     const { dataArray } = this.state
     const displayData = dataArray.Name ? (
-      <div>
-        <p className="font">{dataArray.Name.toUpperCase()}</p>
-        <div className="listFlex">
-          <p className="font" style={{ fontSize: "1.25em" }}>
-            {dataArray.LastPrice.toFixed(2)}
-          </p>
-          <p className={dataArray.Change > 0 ? "positive" : "negative"}>
-            {dataArray.Change.toFixed(2)} ( {dataArray.ChangePercent.toFixed(2)}%
-            )
-          </p>
-        </div>
-        <hr className="otherHr" />
-
-        <div className="listFlex">
-          <p className="words">Range</p>
-          <p className="numbs">
-            {dataArray.Low.toFixed(2)} - {dataArray.High.toFixed(2)}
-          </p>
-        </div>
-        <hr className="otherHr" />
-        <div className="listFlex">
-          <p className="words">Open</p>
-          <p className="numbs">{dataArray.Open.toFixed(2)}</p>
-        </div>
-        <hr className="otherHr" />
-        <div className="listFlex">
-          <p className="words">Volume</p>
-          <p className="numbs">{this.numberFormatter(dataArray.Volume)}</p>
-        </div>
-        <hr className="otherHr" />
-        <div className="listFlex">
-          <p className="words">Market Cap</p>
-          <p className="numbs">{this.numberFormatter(dataArray.MarketCap)}</p>
-        </div>
-        <hr className="otherHr" />
-        <div className="datePos">
-          <p className="words">
-            As of {this.dateFormatter(dataArray.Timestamp)}
-          </p>
-        </div>
-      </div>
+      <Body dataArray = {dataArray}/>
     ) : (
       <p> Type Your Search Below: </p>
     )
@@ -158,7 +98,7 @@ class App extends Component {
           </button>
         </div>
         <div>
-          <Graph data={this.state.data}/>
+          <Graph statsArray={this.state.statsArray}/>
         </div>
       </div>
     )
