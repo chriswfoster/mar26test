@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-const dataList = require('./Data.js').datas
+import axios from 'axios'
+// const dataList = require('./Data.js').datas ////// local data
+
 
 class App extends Component{
 constructor() {
@@ -16,17 +18,22 @@ handleTyping(val) {
   this.setState({ inputText: val });
 }
 
-getNewQuote(search) {
-  dataList[search.toUpperCase()]
-    ? this.statusChecker(search)
-    : alert("Please try a different search parameter.");
+getNewQuote(search){
+  axios.get(`/api/search/${search.toUpperCase()}`)
+  .then(response => console.log(response.data))
 }
 
-statusChecker(search) {
-  dataList[search.toUpperCase()].Status === "SUCCESS"
-    ? this.setState({ chosen: dataList[search.toUpperCase()] })
-    : alert(dataList[search.toUpperCase()].Message);
-}
+// getNewQuote(search) {
+//   dataList[search.toUpperCase()]
+//     ? this.statusChecker(search)
+//     : alert("Please try a different search parameter.");
+// }
+
+// statusChecker(search) {
+//   dataList[search.toUpperCase()].Status === "SUCCESS"
+//     ? this.setState({ chosen: dataList[search.toUpperCase()] })
+//     : alert(dataList[search.toUpperCase()].Message);
+// }
 
 numberFormatter(num) {
   if (num > 999999999) {
@@ -46,7 +53,7 @@ dateFormatter(date) {
 }
 
 render() {
-  console.log(dataList);
+  // console.log(dataList);
   const { chosen } = this.state;
   const displayData = chosen.Name ? (
     <div>
