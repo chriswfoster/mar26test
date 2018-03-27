@@ -3,6 +3,7 @@ const cors = require('cors')
 const {json} = require('body-parser')
 const controller = require('./controllers/controller.js')
 
+
 // I didn't gitignore the .env so you can try it out for yourself :)
 
 const port = 3001

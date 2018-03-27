@@ -2,7 +2,9 @@ import React, { Component } from "react"
 import logo from "./logo.svg"
 import "./App.css"
 import axios from "axios"
-// const dataList = require('./Data.js').datas ////// local data
+import * as V from 'victory'
+import {VictoryChart, VictoryLine} from 'victory'
+// const dataList = require('./Data.js').datas ////// Local data
 
 class App extends Component {
   constructor() {
@@ -10,7 +12,20 @@ class App extends Component {
     this.state = {
       inputText: "",
       chosen: {},
-      dataArray: []
+      dataArray: [],
+      statsArray: [],
+      data: [
+        {x: 0, y: 8},
+        {x: 1, y: 5},
+        {x: 2, y: 4},
+        {x: 3, y: 9},
+        {x: 4, y: 1},
+        {x: 5, y: 7},
+        {x: 6, y: 6},
+        {x: 7, y: 3},
+        {x: 8, y: 2},
+        {x: 9, y: 0}
+      ]
     }
   }
 
@@ -20,14 +35,26 @@ class App extends Component {
 
   getNewQuote(search) {
     axios.get(`/api/search/${search.toUpperCase()}`).then(response => {
-      this.setState({ dataArray: response.data })
+      this.setState({ dataArray: response.data }) 
     })
+    .then( () => this.getTrends(search))
   }
 
-  getTrends(trendee) {
-    axios.get(`/api/trends/${trendee}`)
-    .then(response => console.log(response))
-  }
+  getTrends(search) {
+    var placeHolder = []
+    console.log(search)
+    axios.get(`/api/trends/${search.toUpperCase()}`)
+    .then(response => {
+      
+      for(var key in response.data['Monthly Time Series']){
+        response.data['Monthly Time Series'][key].Date = key
+        placeHolder.push(response.data['Monthly Time Series'][key])
+      }
+      this.setState({statsArray: placeHolder.splice(0, 12)})
+
+    })
+  
+    }
 
   // getNewQuote(search) {
   //   dataList[search.toUpperCase()]
@@ -60,7 +87,7 @@ class App extends Component {
 
   render() {
     console.log(this.state)
-    const { dataArray } = this.state
+    const { dataArray, data } = this.state
     const displayData = dataArray.Name ? (
       <div>
         <p className="font">{dataArray.Name.toUpperCase()}</p>
@@ -107,6 +134,7 @@ class App extends Component {
       <p> Type Your Search Below: </p>
     )
     return (
+      <div className="flexAll">
       <div className="mainDiv">
         <h2>Requirements:</h2>
 
@@ -127,6 +155,15 @@ class App extends Component {
         >
           Get New Quote
         </button>
+</div>
+<div>
+        <VictoryChart>
+  <VictoryLine
+    data={data}
+  />
+</VictoryChart>
+       
+</div>
       </div>
     )
   }

@@ -87,3 +87,11 @@ outline: 0;
   height: 50vh;
   
 }
+.flexAll{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+}
